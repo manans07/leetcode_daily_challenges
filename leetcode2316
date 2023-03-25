@@ -1,0 +1,88 @@
+class Solution {
+public:
+    void dfs(vector<int>adj[],int src,vector<bool>&vis,int &counter){
+        if(vis[src]) return;
+        vis[src]=true;
+        counter++;
+        for(auto ele:adj[src]){
+            if(!vis[ele]){
+                dfs(adj,ele,vis,counter);
+            }
+        }
+
+    }
+    long long countPairs(int n, vector<vector<int>>& edges) {
+        vector<int>adj[n];
+        for(auto ele:edges){
+            adj[ele[0]].push_back(ele[1]);
+            adj[ele[1]].push_back(ele[0]);
+        }
+        long long res = 0;
+        vector<bool>vis(n,false);
+        vector<int>temp;
+        for(int i = 0;i<n;i++){
+            if(!vis[i]){
+                int counter = 0;
+                dfs(adj,i,vis,counter);
+               temp.push_back(counter); // counter -> size of the current component
+            }
+        }
+        int total = 0;
+        for(int i = 0;i<temp.size();i++){
+            res+=(long)((long)temp[i]*(long)(n-total-temp[i]));
+            total+=temp[i];
+        }
+        return res;
+    }
+    
+    */
+    
+    
+    
+    /*long long countPairs(int n, vector<vector<int>>& edges) {
+        
+        vector<int> adj[n];
+        
+        for(int i=0;i<edges.size();i++)
+        {
+            adj[edges[i][0]].push_back(edges[i][1]);
+            adj[edges[i][1]].push_back(edges[i][0]);
+            }
+        long long cnt = 0;
+        
+        int rem = n;
+        vector<bool> v1(n,false);
+        
+        for(int i=0;i<n;i++)
+        {
+            if(v1[i] == false)
+            {
+                int curr = dfs(adj,v1,i,0);
+                rem = n - curr;
+                cnt += rem * curr;
+            }
+            }
+        
+        
+        return cnt/2;   
+    }
+    
+    
+    int dfs(vector<int> adj[],vector<bool> visited,int currNode,int count)
+    {
+        if(visited[currNode] == true) return count;
+        count++;
+        visited[currNode] = true;
+        for(int i:adj[currNode])
+        {
+            dfs(adj,visited,i,count);
+        }
+        
+        return count;
+        
+        }
+    */
+    
+    
+    
+};
